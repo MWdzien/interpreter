@@ -17,7 +17,7 @@ const (
 	ASSIGN = "="
 	PLUS   = "+"
 
-	COMA      = ","
+	COMMA     = ","
 	SEMICOLON = ";"
 
 	LPAREN = "("
