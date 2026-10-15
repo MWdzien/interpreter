@@ -32,6 +32,11 @@ func Eval(node ast.Node) object.Object {
 		return evalStatements(node.Statements)
 	case *ast.IfExpression:
 		return evalIfExpression(node)
+	case *ast.ReturnStatement:
+		val := Eval(node.ReturnValue)
+		return &object.ReturnValue{Value: val}
+	case *ast.Program:
+		return evalProgram(node)
 	}
 
 	return nil
@@ -42,6 +47,10 @@ func evalStatements(stmts []ast.Statement) object.Object {
 
 	for _, stmt := range stmts {
 		result = Eval(stmt)
+
+		if returnValue, ok := result.(*object.ReturnValue); ok {
+			return returnValue.Value
+		}
 	}
 
 	return result
@@ -136,6 +145,20 @@ func evalIfExpression(ie *ast.IfExpression) object.Object {
 	} else {
 		return NULL
 	}
+}
+
+func evalProgram(program *ast.Program) object.Object {
+	var result object.Object
+
+	for _, stmt := range program.Statements {
+		result = Eval(stmt)
+
+		if returnValue, ok := result.(*object.ReturnValue); ok {
+			return returnValue.Value
+		}
+	}
+
+	return result
 }
 
 func isThruthy(obj object.Object) bool {
