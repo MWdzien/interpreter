@@ -44,8 +44,8 @@ func (rv *ReturnValue) Type() ObjectType { return RETURN_VALUE_OBJECT }
 func (rv *ReturnValue) Inspect() string  { return rv.Value.Inspect() }
 
 type Error struct {
-	message string
+	Message string
 }
 
 func (e *Error) Type() ObjectType { return ERROR_OBJ }
-func (e *Error) Inspect() string  { return "ERROR: " + e.message }
+func (e *Error) Inspect() string  { return "ERROR: " + e.Message }
