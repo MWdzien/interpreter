@@ -115,5 +115,5 @@ func (a *Array) Inspect() string {
 	out.WriteString(strings.Join(elements, ", "))
 	out.WriteString("]")
 
-	return out.String()g
+	return out.String()
 }
